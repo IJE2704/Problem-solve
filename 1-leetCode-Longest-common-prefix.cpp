@@ -1,16 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-string lcp(vector<string> &str)
+string lcp(vector<string> &strs)
 {
-  sort(str.begin(), str.end());
-  string f = str.front();
-  string l = str.back();
-  string result;
-  for(int i=0; i<l.size(); i++)
+
+  if (strs.empty())
   {
-    if(f[i]==l[i]) result +=f[i];
+    return "";
   }
-  return result;
+
+  for (int i = 0; i < strs[0].size(); ++i)
+  {
+    char currentChar = strs[0][i];
+
+    for (const std::string &str : strs)
+    {
+      if (i >= str.size() || str[i] != currentChar)
+      {
+        return str.substr(0, i);
+      }
+    }
+  }
+
+  return strs[0];
 }
 int main()
 {
@@ -24,5 +35,5 @@ int main()
     str.push_back(s);
   }
   cout << lcp(str) << endl;
-  // lcp(str);
+ 
 }
